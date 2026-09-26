@@ -1,16 +1,12 @@
-# userdoccers portfolio
+# userdoccers portfolio v2
 
-Static multi-page Vercel portfolio for uriel / userdoccers.
+This version uses full-screen animated slides instead of a native horizontal scrollbar.
 
-## Structure
-- `/` home
-- `/work.html` projects
-- `/about.html` about / skills
-- `/contact.html` contact
-- `/style.css` shared styling
-- `/script.js` shared click-to-enter music logic
-- `/music/` local audio files
+- Wheel up/down or left/right moves between slides.
+- Arrow keys and touch swipes work too.
+- Overflow bars are hidden.
+- Blocks slide completely offscreen and the next set enters with a smooth transition.
+- Every major section remains a separate HTML page.
+- Audio starts from the click-to-enter interaction.
 
-Drop your music into `music/` and update the `tracks` array in `script.js`.
-
-The layout intentionally has a wide canvas so horizontal scrolling is part of the design. Normal vertical scrolling remains available too.
+Put audio files in `music/` and update the `tracks` array in `script.js`.
