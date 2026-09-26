@@ -1,5 +1,5 @@
 const enter=document.querySelector(".enter"), audio=document.querySelector("#audio"), music=document.querySelector(".music");
-const tracks=["/music/track.mp3","/music/music.mp3","/music/song.mp3"];let ti=0;
+const tracks=["/music/sakura.ogg","/music/music.mp3","/music/song.mp3"];let ti=0;
 async function startAudio(){
  if(!audio)return;
  audio.src=tracks[ti];
@@ -16,12 +16,18 @@ function go(n){
  dots.forEach((d,i)=>d.classList.toggle("active",i===current));
 }
 function next(){go(current+1)} function prev(){go(current-1)}
+let wheelAccum=0,wheelResetTimer=null;
 window.addEventListener("wheel",e=>{
- if(Math.abs(e.deltaY)<8 && Math.abs(e.deltaX)<8)return;
  if(locked)return;
+ const primary=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
+ wheelAccum+=primary;
+ clearTimeout(wheelResetTimer);
+ wheelResetTimer=setTimeout(()=>{wheelAccum=0},150);
+ if(Math.abs(wheelAccum)<45)return;
  locked=true;
- if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.deltaX>0?next():prev()}else{e.deltaY>0?next():prev()}
- setTimeout(()=>locked=false,800);
+ (wheelAccum>0?next:prev)();
+ wheelAccum=0;
+ setTimeout(()=>locked=false,850);
 },{passive:true});
 window.addEventListener("keydown",e=>{if(["ArrowRight","ArrowDown","PageDown"].includes(e.key))next();if(["ArrowLeft","ArrowUp","PageUp"].includes(e.key))prev()});
 let sx=0;
