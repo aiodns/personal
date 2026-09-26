@@ -1,12 +1,15 @@
 const enter=document.querySelector(".enter"), audio=document.querySelector("#audio"), music=document.querySelector(".music");
-const tracks=["/music/sakura.ogg","/music/music.mp3","/music/song.mp3"];let ti=0;
+const tracks=["/music/sakura.ogg","/music/music.mp3","/music/song.mp3"];
 async function startAudio(){
  if(!audio)return;
- audio.src=tracks[ti];
+ audio.src=tracks[Math.floor(Math.random()*tracks.length)];
+ audio.loop=true;
  try{await audio.play();if(music)music.style.display="flex"}catch(e){if(music)music.style.display="none"}
 }
-document.querySelector(".enter button")?.addEventListener("click",()=>{enter.classList.add("hide");startAudio()});
-audio?.addEventListener("ended",()=>{ti=(ti+1)%tracks.length;audio.src=tracks[ti];audio.play().catch(()=>{})});
+document.querySelector(".enter button")?.addEventListener("click",()=>{
+ enter.classList.add("hide");startAudio();
+ document.querySelectorAll(".handle.glow").forEach(h=>{h.classList.remove("glow");void h.offsetWidth;h.classList.add("glow")});
+});
 
 const slides=[...document.querySelectorAll(".slide")], track=document.querySelector(".track"), dots=[...document.querySelectorAll(".dots button")];
 let current=Math.max(0,slides.findIndex(x=>x.dataset.current==="true")); let locked=false;
